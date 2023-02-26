@@ -24,8 +24,7 @@ def count_clicks(token, parsed_link):
     return "Переходов по ссылке: {0}".format(clicks)
 
 
-def is_bitlink(parsed_link):
-    token = os.getenv('BITLY_TOKEN')
+def is_bitlink(parsed_link, token):
     headers = {"Authorization": token}
     url = 'https://api-ssl.bitly.com/v4/bitlinks/{0}'.format(parsed_link)
     response = requests.get(url, headers=headers)
@@ -47,7 +46,7 @@ def main():
     parsed_result = urlparse(user_input)
     parsed_link = f"{parsed_result.netloc}{parsed_result.path}"
     try:
-        if is_bitlink(parsed_link):
+        if is_bitlink(parsed_link, token=token):
             print(count_clicks(token, parsed_link))
         else:
             print(shorten_link(token, user_input))
