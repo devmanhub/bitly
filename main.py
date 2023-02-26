@@ -30,7 +30,7 @@ def is_bitlink(parsed_link, token):
     response = requests.get(url, headers=headers)
     return response.ok
 
-def getting_link():
+def get_link():
     parser = argparse.ArgumentParser(
         description='Получние битлинка'
     )
@@ -42,7 +42,7 @@ def getting_link():
 def main():
     load_dotenv()
     token = os.getenv('BITLY_TOKEN')
-    user_input = getting_link()
+    user_input = get_link()
     parsed_result = urlparse(user_input)
     parsed_link = f"{parsed_result.netloc}{parsed_result.path}"
     try:
